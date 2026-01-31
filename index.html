@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Poppins', sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#ff9a9e,#fad0c4,#ffdde1);
+overflow:hidden;
+}
+
+/* Floating background hearts */
+.bg-heart{
+position:absolute;
+font-size:20px;
+opacity:0.3;
+animation: float 10s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-120px);}
+}
+
+/* Main card */
+.card{
+background:white;
+padding:50px 40px;
+border-radius:30px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+text-align:center;
+max-width:500px;
+position:relative;
+z-index:2;
+}
+
+h1{
+color:#ff4d6d;
+font-size:2.4rem;
+margin-bottom:20px;
+}
+
+p{
+color:#555;
+margin-bottom:35px;
+font-size:1.2rem;
+}
+
+/* Buttons */
+.buttons{
+display:flex;
+justify-content:center;
+gap:25px;
+}
+
+/* YES button */
+.yes{
+background:#ff4d6d;
+color:white;
+border:none;
+padding:15px 45px;
+font-size:1.3rem;
+border-radius:50px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+box-shadow:0 8px 20px rgba(255,77,109,0.4);
+}
+
+.yes:hover{
+transform:scale(1.15);
+}
+
+/* NO button */
+.no{
+background:#555;
+color:white;
+border:none;
+padding:15px 45px;
+font-size:1.3rem;
+border-radius:50px;
+cursor:pointer;
+font-weight:bold;
+position:relative;
+}
+
+/* Result message */
+.result{
+margin-top:30px;
+font-size:1.6rem;
+color:#ff4d6d;
+display:none;
+}
+
+/* GIF styling */
+.love-gif{
+display:none;
+width:260px;
+margin-top:20px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+font-size:24px;
+animation: fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>LIIIIIII NA will you be my Valentine? 💌</h1>
+<p>I promise snacks, laughs, and unlimited hugs 😌</p>
+
+<div class="buttons">
+<button class="yes" onclick="yesClicked()">YES 💖</button>
+<button class="no" id="noBtn">NO 😢</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<img id="loveGif" class="love-gif">
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const result = document.getElementById("result");
+const loveGif = document.getElementById("loveGif");
+
+/* --- NO runs away --- */
+noBtn.addEventListener("mouseenter", () => {
+
+const screenWidth = window.innerWidth - noBtn.offsetWidth;
+const screenHeight = window.innerHeight - noBtn.offsetHeight;
+
+const randomX = Math.random() * screenWidth;
+const randomY = Math.random() * screenHeight;
+
+noBtn.style.position = "fixed";
+noBtn.style.left = randomX + "px";
+noBtn.style.top = randomY + "px";
+
+});
+
+/* --- YES clicked --- */
+function yesClicked(){
+
+document.querySelector(".buttons").style.display="none";
+
+result.style.display="block";
+result.innerHTML="OSSAAAAAA 😏😏😏😏💖";
+
+/* Show FIRST GIF */
+loveGif.src = "game-of-thrones-tormund.gif";
+loveGif.style.display = "block";
+
+launchConfetti();
+
+/* After 5 seconds switch to cute GIF */
+setTimeout(() => {
+loveGif.src = "cute.gif";
+}, 4000);
+
+}
+
+/* --- Confetti celebration --- */
+function launchConfetti(){
+
+const emojis=["💖","💕","💘","💝","❤️"];
+
+for(let i=0;i<60;i++){
+
+const conf=document.createElement("div");
+conf.classList.add("confetti");
+conf.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+
+conf.style.left=Math.random()*100+"vw";
+conf.style.animationDuration=(Math.random()*2+2)+"s";
+
+document.body.appendChild(conf);
+
+}
+}
+
+/* Floating hearts */
+for(let i=0;i<20;i++){
+
+let heart=document.createElement("div");
+heart.innerHTML="💗";
+heart.classList.add("bg-heart");
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(Math.random()*6+6)+"s";
+
+document.body.appendChild(heart);
+}
+
+</script>
+
+</body>
+</html>
